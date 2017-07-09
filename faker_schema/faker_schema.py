@@ -13,8 +13,8 @@ def load_file(file_path):
 
 class FakerSchema(object):
     
-    def __init__(self, schema, faker=None,locale=DEFAULT_LOCALE):
-        self._faker = faker or Faker(locale=locale)
+    def __init__(self, schema, faker=None, locale=None, providers=None, includes=None):
+        self._faker = faker or Faker(locale=locale, providers=providers, includes=includes)
         self._schema = schema
         
     def generate_fake(self, iterations=1):
@@ -27,7 +27,7 @@ class FakerSchema(object):
             try:
                 fake_data[key] = getattr(self._faker, key_type)()
             except AttributeError:
-                raise ValueError('No faker found for key "{0}", which has type "{1}".'
+                raise ValueError('No faker found for key "{}", which has type "{}".'
                                  .format(key, key_type))
         return fake_data
 
@@ -36,7 +36,7 @@ class FakerSchema(object):
         try:
             json_data = load_file(json_file)
         except ValueError as e:
-            raise ValueError('Given file {0} is not a valid JSON file: {1}'.format(json_file, e))
+            raise ValueError('Given file {} is not a valid JSON file: {}'.format(json_file, e))
         else:    
             return cls(json_data, *args, **kwargs)
 
@@ -45,6 +45,6 @@ class FakerSchema(object):
         try:
             json_data = json.loads(json_string)
         except ValueError as e:
-            raise ValueError('Given string is not valid JSON: {0}'.format(e))
+            raise ValueError('Given string is not valid JSON: {}'.format(e))
         else:    
             return cls(json_data, *args, **kwargs)
