@@ -13,8 +13,8 @@ def load_file(file_path):
 
 class FakerSchema(object):
     
-    def __init__(self, schema, locale=DEFAULT_LOCALE):
-        self._faker = Faker(locale=locale)
+    def __init__(self, schema, faker=None,locale=DEFAULT_LOCALE):
+        self._faker = faker or Faker(locale=locale)
         self._schema = schema
         
     def generate_fake(self, iterations=1):
