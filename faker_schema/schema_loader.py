@@ -1,15 +1,11 @@
 import json
 
 
-def load_file(file_path):
-    with open(file_path) as f:
-        return json.load(f)
-
-
 def load_json_from_file(file_path):
     """Load schema from a file"""
     try:
-        json_data = load_file(file_file)
+        with open(file_path) as f:
+            json_data = json.load(f)
     except ValueError as e:
         raise ValueError('Given file {} is not a valid JSON file: {}'.format(json_file, e))
     else:    
