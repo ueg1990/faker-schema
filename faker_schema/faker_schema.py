@@ -16,9 +16,13 @@ class FakerSchema(object):
     def __init__(self, schema, faker=None, locale=None, providers=None, includes=None):
         self._faker = faker or Faker(locale=locale, providers=providers, includes=includes)
         self._schema = schema
+
+    @property
+    def schema(self):
+        return self._schema
         
     def generate_fake(self, iterations=1):
-        result = [self._generate_one_fake(self._schema) for _ in range(iterations)]
+        result = [self._generate_one_fake(self.schema) for _ in range(iterations)]
         return result[0] if len(result) == 1 else result
 
     def _generate_one_fake(self, schema):
