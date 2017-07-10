@@ -25,11 +25,20 @@ class FakerSchema(object):
         fake_data = {}
         for key, key_type in self._schema.items():
             try:
-                fake_data[key] = getattr(self._faker, key_type)()
+                fake_data[key] = self._generate(key_type)
             except AttributeError:
                 raise ValueError('No faker found for key "{}", which has type "{}".'
                                  .format(key, key_type))
         return fake_data
+
+    def _generate(self, key_type):
+        if isinstance(key_type, list):
+            result = []
+            for item in key_type:
+                for k, v in list(item.items()):
+                    result.append({k: getattr(self._faker, v)()})
+            return result
+        return getattr(self._faker, key_type)()
 
     @classmethod
     def from_json_file(cls, json_file, *args, **kwargs):
