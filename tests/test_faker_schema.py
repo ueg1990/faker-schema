@@ -26,6 +26,7 @@ class MockFaker(object):
     def postalcode(self):
         return '17204'
 
+
 class TestFakerSchema(unittest.TestCase):
 
     def setUp(self):

@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 from faker import Faker
 from faker.config import DEFAULT_LOCALE
 
