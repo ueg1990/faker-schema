@@ -43,7 +43,7 @@ class TestFakerSchema(unittest.TestCase):
         data = self.faker_schema.generate_fake(schema, iterations=4)
 
         self.assertIsInstance(data, list)
-        self.assertEquals(len(data), 4)
+        self.assertEqual(len(data), 4)
 
     def test_generate_fake_nested_schema(self):
         schema = {'Full Name': 'name', 'Location': {'Address': 'street_address', 'City': 'city',
