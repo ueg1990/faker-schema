@@ -99,3 +99,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# nosetests coverage reports
+cover/
