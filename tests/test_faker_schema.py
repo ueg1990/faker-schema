@@ -19,7 +19,7 @@ class MockFaker(object):
 
     def city(self):
         return 'Copenhagen'
-    
+
     def country(self):
         return 'Denmark'
 
@@ -49,14 +49,14 @@ class TestFakerSchema(unittest.TestCase):
         schema = {'Full Name': 'name', 'Location': {'Address': 'street_address', 'City': 'city',
                   'Country': 'country', 'Postal Code': 'postalcode'}}
         data = self.faker_schema.generate_fake(schema)
-        
+
         self.assertIsInstance(data, dict)
         self.assertIsInstance(data['Location'], dict)
-   
+
     def test_generate_fake_schema_with_list(self):
         schema = {'Employer': 'name', 'EmployeeList': [{'Employee1': 'name'},
                   {'Employee2': 'name'}]}
         data = self.faker_schema.generate_fake(schema)
-        
+
         self.assertIsInstance(data, dict)
         self.assertIsInstance(data['EmployeeList'], list)

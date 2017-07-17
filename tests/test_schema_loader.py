@@ -31,7 +31,7 @@ class TestSchemaLoader(unittest.TestCase):
             yield temp_file.name
         finally:
             os.remove(temp_file.name)
-    
+
     def test_load_json_from_file(self):
         schema = {'Full Name': 'name', 'Address': 'address', 'Email': 'email'}
         with self._write_to_temp_file(schema, write_to_json=True) as temp_file:

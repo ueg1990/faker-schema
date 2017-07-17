@@ -1,9 +1,8 @@
 from faker import Faker
-from faker.config import DEFAULT_LOCALE
 
 
 class FakerSchema(object):
-    
+
     def __init__(self, faker=None, locale=None, providers=None, includes=None):
         self._faker = faker or Faker(locale=locale, providers=providers, includes=includes)
 
