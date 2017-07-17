@@ -33,7 +33,7 @@ Getting started
 
 
 This library is dependent on `faker <https://github.com/joke2k/faker>`__
-for availabble schema types. Faker provides a wide variety of data types
+for available schema types. Faker provides a wide variety of data types
 via providers. For a list of available providers, checkout
 `Providers <http://faker.readthedocs.io/en/master/providers.html>`__ and
 `Community
@@ -88,7 +88,7 @@ Using different locales
 
 The `Faker <https://github.com/joke2k/faker>`__ library provides a list
 of different `locales <https://github.com/joke2k/faker#localization>`__.
-You can choose your required locale from that list and provid it to the
+You can choose your required locale from that list and provide it to the
 FakerSchema instance
 
 .. code:: python
