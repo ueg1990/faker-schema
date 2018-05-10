@@ -1,6 +1,9 @@
 import json
 
 
+__all__ = ['load_json_from_file', 'load_json_from_string']
+
+
 def load_json_from_file(file_path):
     """Load schema from a JSON file"""
     try:

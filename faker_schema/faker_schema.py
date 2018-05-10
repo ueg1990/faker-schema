@@ -1,4 +1,14 @@
 from faker import Faker
+from .faker_caller import Caller
+
+
+__all__ = ['FakerSchema']
+
+
+try:
+    string_type = basestring
+except NameError:
+    string_type = str
 
 
 class FakerSchema(object):
@@ -18,8 +28,11 @@ class FakerSchema(object):
         Implementation:
         For each key-value pair:
         1) If value is not an iterable (i.e. dict or list), evaluate the fake data (base case)
-        2) If value is a dictionary, recurse
-        3) If value is a list, iteratively recurse over each item
+        1) If value is a dictionary, recurse
+        2) If value is a list, iteratively recurse over each item
+        3) If value is string and faker has method called like value evaluate the fake data
+        4) If value is "Caller" object evaluate the fake data
+        5) In any other case pass value as is
         """
         data = {}
         for k, v in schema.items():
@@ -27,6 +40,10 @@ class FakerSchema(object):
                 data[k] = self._generate_one_fake(v)
             elif isinstance(v, list):
                 data[k] = [self._generate_one_fake(item) for item in v]
-            else:
+            elif isinstance(v, string_type) and hasattr(self._faker, v):
                 data[k] = getattr(self._faker, v)()
+            elif isinstance(v, Caller):
+                data[k] = v(self._faker)
+            else:
+                data[k] = v
         return data
