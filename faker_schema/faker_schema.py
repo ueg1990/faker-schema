@@ -1,4 +1,6 @@
 from faker import Faker
+import random
+import re
 
 
 class FakerSchema(object):
@@ -28,5 +30,23 @@ class FakerSchema(object):
             elif isinstance(v, list):
                 data[k] = [self._generate_one_fake(item) for item in v]
             else:
-                data[k] = getattr(self._faker, v)()
+                args = []
+                kwargs = {}
+                if v.startswith("(") and v.endswith(")"):
+                    choices = re.findall(r'\w+', v)
+                    data[k] = random.choice(choices)  # TODO seed and fake dependency control
+                    continue
+                elif bool(re.search(r'\w+\(.*\)', v)):
+                    tokens = re.findall(r'[\w\=]+', v)
+                    v = tokens.pop(0)
+                    for token in tokens:
+                        if "=" in token:
+                            x, y = token.split("=")
+                            kwargs[x] = int(y) if y.isdigit() else y
+                        else:
+                            args.append(int(token) if token.isdigit() else token)
+                if v.startswith("date"):
+                    data[k] = getattr(self._faker, v)(*args, **kwargs).isoformat()
+                else:
+                    data[k] = getattr(self._faker, v)(*args, **kwargs)
         return data

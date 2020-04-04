@@ -140,6 +140,35 @@ Nested List
     # {'Employer': 'Faith Knapp', 'EmployeList': [{'Name': 'Douglas Bailey'},
     # {'Name': 'Karen Rivera'}, {'Name': 'Linda Vance MD'}]}
 
+Random Choices
+^^^^^^^^^^^
+
+.. code:: python
+
+    from faker_schema.faker_schema import FakerSchema
+
+    schema = {'Employer': 'name', 'EmployeList': [{'Name': 'name', 'Gender': '(Male|Female)'},
+              {'Name': 'name', 'Gender': '(Male|Female)'}]}
+    faker = FakerSchema()
+    data = faker.generate_fake(schema)
+    # {'Employer': 'Faith Knapp', 'EmployeList': [{'Name': 'Douglas Bailey', 'Gender': 'Male'},
+    # {'Name': 'Karen Rivera', 'Gender': 'Female'}]}
+
+Generators with args and kwargs
+^^^^^^^^^^^
+
+.. code:: python
+
+    from faker_schema.faker_schema import FakerSchema
+
+    schema = {'Employer': 'name', 'EmployeList': [
+              {'Name': 'name', 'Gender': '(Male|Female)', 'Age': 'random_int(20,40)'},
+              {'Name': 'name', 'Gender': '(Male|Female)', 'Age': 'random_int(min=30,max=50)'}]}
+    faker = FakerSchema()
+    data = faker.generate_fake(schema)
+    # {'Employer': 'Faith Knapp', 'EmployeList': [{'Name': 'Douglas Bailey', 'Gender': 'Male', 'Age': 25},
+    # {'Name': 'Karen Rivera', 'Gender': 'Female', 'Age': 45}]}
+
 Generating a certain number of fake data from given schema
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
