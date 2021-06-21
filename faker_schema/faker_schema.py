@@ -1,5 +1,5 @@
 from faker import Faker
-
+from operator import attrgetter
 
 class FakerSchema(object):
 
@@ -28,5 +28,6 @@ class FakerSchema(object):
             elif isinstance(v, list):
                 data[k] = [self._generate_one_fake(item) for item in v]
             else:
-                data[k] = getattr(self._faker, v)()
+                retriever = attrgetter(v)
+                data[k] = retriever(self._faker)()
         return data
